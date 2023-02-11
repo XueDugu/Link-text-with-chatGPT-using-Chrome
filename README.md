@@ -8,7 +8,7 @@
 ```
 npm install
 ```
-复制到一个名为.env和名为.env-example的新文件中，并添加您的 ChatGPT 电子邮件和密码。
+将.env.example复制添加您的 ChatGPT 电子邮件和密码到一个名为.env和名为.env-example的新文件中，可以先用txt然后再修改后缀名。
 
 运行服务器，以便扩展可以与 ChatGPT 通信。
 
