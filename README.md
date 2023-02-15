@@ -1,5 +1,6 @@
 # Link-text-with-chatGPT-using-Chrome
-首先在本地计算机上克隆此存储库
+
+您首先在本地计算机上克隆此存储库。
 
 **安装依赖项**
 
@@ -8,9 +9,8 @@
 ```
 npm install
 ```
-将.env.example添加您的 ChatGPT 电子邮件和密码后，将其中的内容复制到一个名为.env和名为.env-example的新文件中，可以先用txt然后再修改后缀名。
 
-运行服务器，以便扩展可以与 ChatGPT 通信。
+在.env.example中添加您的 ChatGPT 电子邮件和密码后，将其中的内容复制到一个名为.env和名为.env-example的新建文件中，可以先用.txt格式然后再修改后缀名。
 
 ```
 node server.js
@@ -20,13 +20,13 @@ node server.js
 
 **添加扩展**
 
-转到谷歌浏览器中的 chrome://extensions
+转到谷歌浏览器中的 chrome://extensions。
 
-选中右上角的开发者模式
+选中右上角的开发者模式。
 
-单击“加载已解压的扩展程序”以查看文件选择对话框
+单击“加载已解压的扩展程序”以查看文件选择对话框。
 
-选择您的本地目录chatgpt-chrome-extension/extension
+选择您的本地目录中的extension。
 
 现在，如果您右键单击任何文本输入或内容可编辑区域，您将看到Ask ChatGPT。
 
