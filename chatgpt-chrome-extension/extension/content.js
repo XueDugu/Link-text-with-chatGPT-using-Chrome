@@ -1,24 +1,18 @@
-// Listen for messages from the background script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === "ASK_CHATGPT") {
     let originalActiveElement;
     let text;
-
-    // If there's an active text input
     if (
       document.activeElement &&
       (document.activeElement.isContentEditable ||
         document.activeElement.nodeName.toUpperCase() === "TEXTAREA" ||
         document.activeElement.nodeName.toUpperCase() === "INPUT")
     ) {
-      // Set as original for later
       originalActiveElement = document.activeElement;
-      // Use selected text or all text in the input
       text =
         document.getSelection().toString().trim() ||
         document.activeElement.textContent.trim();
     } else {
-      // If no active text input use any selected text on page
       text = document.getSelection().toString().trim();
     }
 
@@ -31,7 +25,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     showLoadingCursor();
 
-    // Send the text to the API endpoint
     fetch("http://localhost:3000", {
       method: "POST",
       headers: {
@@ -41,7 +34,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     })
       .then((response) => response.json())
       .then(async (data) => {
-        // Use original text element and fallback to current active text element
         const activeElement =
           originalActiveElement ||
           (document.activeElement.isContentEditable && document.activeElement);
@@ -51,7 +43,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             activeElement.nodeName.toUpperCase() === "TEXTAREA" ||
             activeElement.nodeName.toUpperCase() === "INPUT"
           ) {
-            // Insert after selection
             activeElement.value =
               activeElement.value.slice(0, activeElement.selectionEnd) +
               `\n\n${data.reply}` +
@@ -60,7 +51,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 activeElement.length
               );
           } else {
-            // Special handling for contenteditable
             const replyNode = document.createTextNode(`\n\n${data.reply}`);
             const selection = window.getSelection();
 
@@ -71,15 +61,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
             const range = selection.getRangeAt(0);
             range.collapse(false);
-
-            // Insert reply
             range.insertNode(replyNode);
-
-            // Move the cursor to the end
             selection.collapse(replyNode, replyNode.length);
           }
         } else {
-          // Alert reply since no active text area
           alert(`ChatGPT says: ${data.reply}`);
         }
 
