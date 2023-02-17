@@ -100,8 +100,6 @@ function configure({ plugins, ...opts }) {
       parsers.push(plugin.parse);
     }
   }
-
-  // Send ChatGPT a training message that includes all plugin rules
   const train = () => {
     if (!rules.length) return;
 
@@ -111,8 +109,6 @@ function configure({ plugins, ...opts }) {
     `;
     return conversation.sendMessage(message);
   };
-
-  // Run the ChatGPT response through all plugin parsers
   const parse = async (reply) => {
     for (const parser of parsers) {
       reply = await parser(reply);
